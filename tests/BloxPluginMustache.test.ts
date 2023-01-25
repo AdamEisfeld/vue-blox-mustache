@@ -2,7 +2,6 @@ import { test, expect } from 'vitest'
 import { BloxPluginMustache } from '../src/classes/BloxPluginMustache'
 import type { BloxError } from 'vue-blox'
 
-
 test('Mustache plugin renders simple mustache', async () => {
 
 	// Given

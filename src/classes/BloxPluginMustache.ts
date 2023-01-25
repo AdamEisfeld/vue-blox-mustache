@@ -6,9 +6,13 @@ import * as mustache from 'mustache'
  */
 class BloxPluginMustache implements Blox.BloxPluginInterface {
 
-	run(key: string, value: any, variables: any, setProp: (key: string, value: any) => void, setSlot: (slotName: string, views: any[]) => void ): void {
-		const parsedValue = this.runMustache(value, variables, 0, 10)
-		setProp(key, parsedValue)
+	run(key: string, value: any, variables: any, setProp: (key: string, value: any) => void, setSlot: (slotName: string, views: any[]) => void ): { key: string, value: any } {
+		const result = this.runMustache(value, variables, 0, 10)
+		setProp(key, result)
+		return {
+			key,
+			value: result
+		}
 	}
 
 	runMustache(value: any, variables: Record<string, any>, steps: number = 0, maxSteps: number = 10): any {

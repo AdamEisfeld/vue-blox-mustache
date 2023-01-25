@@ -2,8 +2,10 @@
 
 import { defineComponent, reactive } from 'vue'
 import { BloxComponent } from 'vue-blox'
-import { BloxError } from 'vue-blox'
 import { BloxPluginMustache } from '../src/classes/BloxPluginMustache'
+
+import StackComponent from './components/StackComponent.vue'
+import LabelComponent from './components/LabelComponent.vue'
 
 export default defineComponent({
 	name: 'App',
@@ -13,50 +15,47 @@ export default defineComponent({
 	props: {},
 	setup() {
 
-		// 1. Construct variables
+		// 1. Catalog
+
+		const catalog = {
+			'stack': StackComponent,
+			'label': LabelComponent
+		}
 		
-		const variables: any = reactive({
-			bar: 'Adam',
-			foo: 'Tom',
-			baz: 'Joey',
-			score: 0,
+		// 2. Construct variables
+		
+		const variables = reactive({
+			name: 'Adam',
+			age: 32,
+			message: 'This plugin was created by {{ name }}'
 		})
 
-		// 2. Construct view
+		// 3. Construct view
 
-		const view: any = {
+		const view = {
 			type: 'stack',
 			'slot:children': [
 				{
-					type: 'button',
-					'bind:message': 'foo',
-					'bind:count': 'score',
+					type: 'label',
+					'text': '{{ name }} is {{ age }} years old.',
 				},
 				{
-					type: 'button',
-					'message': '{{ bar }} and {{ baz }}',
-					'bind:count': 'score',
-				}
+					type: 'label',
+					'text': '{{ message }}.',
+				},
 			]
 		}
 
-		const onError = (error: any) => {
-			const bloxError = BloxError.asBloxError(error)
-			if (bloxError) {
-				console.log(bloxError.debugMessage)
-			} else {
-				console.log(error)
-			}
-		}
-
+		// 4. Construct plugins
+		
 		const plugins = [
 			new BloxPluginMustache()
 		]
 
 		return {
+			catalog,
 			variables,
 			view,
-			onError,
 			plugins,
 		}
 	},
@@ -64,7 +63,10 @@ export default defineComponent({
 </script>
 
 <template>
-	<main>
-		<BloxComponent :view="view" :variables="variables" @on:error="onError" :plugins="plugins"/>
+	<main style="padding: 48px; display: flex; flex-wrap: no-wrap; flex-direction: column; align-items: center; gap: 48px;">
+		<img src="/logoMustache.png" width="200"/>
+		<div style="padding: 24px; border-style: solid; border-color: gray; border-radius: 12px;">
+			<BloxComponent :catalog="catalog" :view="view" :variables="variables" :plugins="plugins"/>
+		</div>
 	</main>
 </template>

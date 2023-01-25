@@ -1,7 +1,6 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default defineConfig({
 	// If our .vue files have a style, it will be compiled as a single `.css` file under /dist.
@@ -30,8 +29,7 @@ export default defineConfig({
 		rollupOptions: {
 			// Vue is provided by the parent project, don't compile Vue source-code inside our library.
 			external: ['vue'],
-			output: { globals: { vue: 'Vue' } },
-			plugins: [nodeResolve()]
+			output: { globals: { vue: 'Vue' } }
 		},
 	},
 })
