@@ -1,5 +1,5 @@
 
-<img src="https://user-images.githubusercontent.com/2840242/207716387-7ff01edc-1718-4e4c-87d7-40fb917dd937.png" alt="VueBlox" width="200"/>
+<img src="https://user-images.githubusercontent.com/2840242/214479879-c6798db4-0f81-4bc0-8eb1-1fe6cb2dec26.png" alt="VueBlox" width="200"/>
 
 A plugin for Vue Blox that enables Mustache templates within your views.
   
@@ -18,4 +18,4 @@ npm install mustache@4.1.0
 
 ## Documentation
 
-Please visit the vue-blox site at [vueblox.io](https://www.vueblox.io) for up-to-date docs and examples.
+Please visit the vue-blox site at [vueblox.io](https://www.vueblox.io/docs/plugins/plugin-mustache.html) for up-to-date docs and examples.
