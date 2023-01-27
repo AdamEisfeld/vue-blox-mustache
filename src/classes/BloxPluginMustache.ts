@@ -1,18 +1,23 @@
-import * as Blox from 'vue-blox'
+import type { BloxContext, BloxPluginInterface } from 'vue-blox'
 import * as mustache from 'mustache'
 
 /**
  * A plugin for rendering mustache templates.
  */
-class BloxPluginMustache implements Blox.BloxPluginInterface {
+class BloxPluginMustache implements BloxPluginInterface {
 
-	run(key: string, value: any, variables: any, setProp: (key: string, value: any) => void, setSlot: (slotName: string, views: any[]) => void ): { key: string, value: any } {
-		const result = this.runMustache(value, variables, 0, 10)
-		setProp(key, result)
-		return {
-			key,
-			value: result
+	run({ context, key, value, variables, buildContext }: { context: BloxContext, key: string, value: any, variables: any, buildContext: ({ view, variables }: { view: any, variables: any }) => BloxContext | undefined }) {	
+		
+		if (typeof value !== 'string' || !value.includes('{{') || !value.includes('}}')) {
+			return
 		}
+		
+		const result = this.runMustache(value, variables, 0, 10)
+		context.setProp({
+			propName: key, 
+			value: result
+		})
+
 	}
 
 	runMustache(value: any, variables: Record<string, any>, steps: number = 0, maxSteps: number = 10): any {
@@ -29,11 +34,7 @@ class BloxPluginMustache implements Blox.BloxPluginInterface {
 			}
 			return unwrapped
 		} catch(error) {
-			throw new Blox.BloxError(
-				'Mustache parsing failed.',
-				`The call to runMustache() for value ${value} threw the error: ${error}`,
-				undefined
-			)
+			throw new Error(`The call to runMustache() for value ${value} threw the error: ${error}`)
 		}
 
 	}

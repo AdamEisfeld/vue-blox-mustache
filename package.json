@@ -1,6 +1,6 @@
 {
 	"name": "vue-blox-mustache",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"author": "Adam Eisfeld",
 	"license": "MIT",
 	"description": "Adds mustache template support to vue-blox.",
@@ -50,6 +50,6 @@
 	"peerDependencies": {
 		"mustache": "^4.1.0",
 		"vue": "^3.2.45",
-		"vue-blox": "^0.6.9"
+		"vue-blox": "^0.7.0"
 	}
 }
